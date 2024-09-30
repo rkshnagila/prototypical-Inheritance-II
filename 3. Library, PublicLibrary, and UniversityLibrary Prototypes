@@ -1,0 +1,43 @@
+// Library prototype
+function Library(books) {
+    this.books = books;
+}
+
+Library.prototype.getBooks = function() {
+    return `Available books: ${this.books.join(", ")}`;
+};
+
+// PublicLibrary prototype inheriting from Library
+function PublicLibrary(books) {
+    Library.call(this, books);
+}
+
+PublicLibrary.prototype = Object.create(Library.prototype);
+PublicLibrary.prototype.constructor = PublicLibrary;
+
+PublicLibrary.prototype.lendBook = function(book) {
+    console.log(`Lending out: ${book}`);
+};
+
+// UniversityLibrary prototype inheriting from Library
+function UniversityLibrary(books, researchPapers) {
+    Library.call(this, books);
+    this.researchPapers = researchPapers;
+}
+
+UniversityLibrary.prototype = Object.create(Library.prototype);
+UniversityLibrary.prototype.constructor = UniversityLibrary;
+
+UniversityLibrary.prototype.addResearchPapers = function(paper) {
+    this.researchPapers.push(paper);
+    console.log(`Added research paper: ${paper}`);
+};
+
+// Create instances and demonstrate functionality
+const publicLibrary = new PublicLibrary(["Book1", "Book2", "Book3"]);
+console.log(publicLibrary.getBooks()); // Available books: Book1, Book2, Book3
+publicLibrary.lendBook("Book1"); // Lending out: Book1
+
+const universityLibrary = new UniversityLibrary(["BookA", "BookB"], ["Paper1", "Paper2"]);
+console.log(universityLibrary.getBooks()); // Available books: BookA, BookB
+universityLibrary.addResearchPapers("Paper3"); // Added research paper: Paper3
