@@ -1,0 +1,34 @@
+// BankAccount constructor function
+function BankAccount(accountNumber, balance) {
+    this.accountNumber = accountNumber;
+    this.balance = balance;
+}
+
+BankAccount.prototype.deposit = function(amount) {
+    this.balance += amount;
+    console.log(`Deposited: ${amount}, New Balance: ${this.balance}`);
+};
+
+// SavingsAccount constructor function inheriting from BankAccount
+function SavingsAccount(accountNumber, balance, minBalance) {
+    BankAccount.call(this, accountNumber, balance);
+    this.minBalance = minBalance;
+}
+
+SavingsAccount.prototype = Object.create(BankAccount.prototype);
+SavingsAccount.prototype.constructor = SavingsAccount;
+
+SavingsAccount.prototype.withdraw = function(amount) {
+    if (this.balance - amount >= this.minBalance) {
+        this.balance -= amount;
+        console.log(`Withdrew: ${amount}, New Balance: ${this.balance}`);
+    } else {
+        console.log(`Insufficient balance. Minimum balance of ${this.minBalance} must be maintained.`);
+    }
+};
+
+// Create an instance and demonstrate functionality
+const savingsAccount = new SavingsAccount("123456", 1000, 500);
+savingsAccount.deposit(300); // Deposited: 300, New Balance: 1300
+savingsAccount.withdraw(900); // Withdrew: 900, New Balance: 400
+savingsAccount.withdraw(100); // Insufficient balance. Minimum balance of 500 must be maintained.
