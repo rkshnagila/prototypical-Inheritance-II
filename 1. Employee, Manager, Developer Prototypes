@@ -1,0 +1,43 @@
+
+// Employee prototype
+function Employee(name, position) {
+    this.name = name;
+    this.position = position;
+}
+
+Employee.prototype.getDetails = function() {
+    return `Name: ${this.name}, Position: ${this.position}`;
+};
+
+// Manager prototype inheriting from Employee
+function Manager(name, position, teamSize) {
+    Employee.call(this, name, position); // Inheriting properties
+    this.teamSize = teamSize;
+}
+
+Manager.prototype = Object.create(Employee.prototype); // Inheriting methods
+Manager.prototype.constructor = Manager;
+
+Manager.prototype.getDetails = function() {
+    return `Name: ${this.name}, Position: ${this.position}, Team Size: ${this.teamSize}`;
+};
+
+// Developer prototype inheriting from Employee
+function Developer(name, position, programmingLanguage) {
+    Employee.call(this, name, position);
+    this.programmingLanguage = programmingLanguage;
+}
+
+Developer.prototype = Object.create(Employee.prototype);
+Developer.prototype.constructor = Developer;
+
+Developer.prototype.getDetails = function() {
+    return `Name: ${this.name}, Position: ${this.position}, Programming Language: ${this.programmingLanguage}`;
+};
+
+// Create instances and demonstrate functionality
+const manager = new Manager("Alice", "Manager", 5);
+const developer = new Developer("Bob", "Developer", "JavaScript");
+
+console.log(manager.getDetails()); // Name: Alice, Position: Manager, Team Size: 5
+console.log(developer.getDetails()); // Name: Bob, Position: Developer, Programming Language: JavaScript
