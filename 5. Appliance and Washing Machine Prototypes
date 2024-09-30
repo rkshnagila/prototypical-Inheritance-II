@@ -1,0 +1,21 @@
+// Appliance prototype
+function Appliance() {}
+
+Appliance.prototype.turnOn = function() {
+    console.log("The appliance is now on");
+};
+
+// WashingMachine prototype inheriting from Appliance
+function WashingMachine() {}
+
+WashingMachine.prototype = Object.create(Appliance.prototype);
+WashingMachine.prototype.constructor = WashingMachine;
+
+WashingMachine.prototype.startWashing = function() {
+    console.log("The washing machine is now washing clothes");
+};
+
+// Create an instance and demonstrate functionality
+const washingMachine = new WashingMachine();
+washingMachine.turnOn(); // The appliance is now on
+washingMachine.startWashing(); // The washing machine is now washing clothes
