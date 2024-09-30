@@ -1,0 +1,22 @@
+// Person object
+const Person = {
+    introduce: function() {
+        console.log(`Hello, my name is ${this.name}`);
+    }
+};
+
+// Athlete object inheriting from Person
+const Athlete = Object.create(Person);
+Athlete.playSport = function() {
+    console.log(`Playing ${this.sport}`);
+};
+Athlete.introduce = function() {
+    console.log(`Hello, my name is ${this.name} and I play ${this.sport}`);
+};
+
+// Create an instance and demonstrate functionality
+const athlete = Object.create(Athlete);
+athlete.name = "David";
+athlete.sport = "Soccer";
+athlete.introduce(); // Hello, my name is David and I play Soccer
+athlete.playSport(); // Playing Soccer
